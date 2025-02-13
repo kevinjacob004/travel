@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Agency</title>
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="nav-links">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        {% if page == 'login' %}
+                            <li><a href="/signup">Sign Up</a></li>
+                        {% elif page == 'signup' %}
+                            <li><a href="/login">Login</a></li>
+                        {% else %}
+                            {% if 'loggedin' in session %}
+                                <li><a href="/bookings">Bookings</a></li>
+                                <li><a href="/booking-history">Booking History</a></li> 
+                                <li><a href="/logout">Logout</a></li>
+                            {% else %}
+                                <li><a href="/login">Login</a></li>
+                                <li><a href="/signup">Sign Up</a></li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="welcome-user">
+                    {% if 'loggedin' in session %}
+                        <span>Welcome, {{ session['user_name'] }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+     
+    
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <!-- <h4> Contact Us</h4>
+        <p> Address: Fort Nagar,Fort Kochi, Ernakulam, India</p>
+        <p> Phone: +91 94274 18376</p>
+        <p> Email: support@travelagency.com</p> -->
+        <p> &copy; 2024 Travel Agency</p>
+    </footer>
+</body>
+</html>

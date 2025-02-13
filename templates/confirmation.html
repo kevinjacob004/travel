@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="confirmation">
+    <h2>Booking Confirmed!</h2>
+    <div class="ticket">
+        <h3>Booking Details</h3>
+        <p><strong>Package:</strong> {{ booking.package_name }}</p>
+        <p><strong>Price:</strong> ${{ booking.package_price }}</p>
+        <p><strong>Booking Date:</strong> {{ booking.booking_date }}</p>
+        
+        <h3>Traveler Information</h3>
+        <p><strong>Name:</strong> {{ booking.user_name }}</p>
+        <p><strong>Email:</strong> {{ booking.user_email }}</p>  <!-- Use the email from booking -->
+
+        <h3>Thank you for booking with Travel Agency!</h3>
+        <p>Your trip to {{ booking.package_name }} is confirmed. We look forward to making your journey memorable!</p>
+    </div>
+    <button onclick="window.print()">Print Ticket</button>
+</section>
+{% endblock %}

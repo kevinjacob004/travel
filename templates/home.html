@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+</section> 
+<section class="destinations">
+    <h2>Destinations</h2>
+    <div class="grid">
+        {% for destination in destinations %}
+        <div class="card">
+            <img src="{{ destination.image_url }}" alt="{{ destination.d_name }}" class="destination-image">
+            <h3>{{ destination.d_name }}</h3>
+            <p>{{ destination.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<section class="packages">
+    <h2>Available Packages</h2>
+    <div class="grid">
+        {% for package in packages %}
+        <div class="card">
+            <img src="{{ package.image_url }}" alt="{{ package.name }}" class="package-image">
+            <h3>{{ package.name }}</h3>
+            <p>{{ package.description }}</p>
+            <p>Price: ${{ package.price }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

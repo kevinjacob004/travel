@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="booking-history">
+    <h2>Your Booking History</h2>
+
+    {% if bookings %}
+        <table>
+            <tr>
+                <th>Package</th>
+                <th>Price</th>
+                <th>Date</th> 
+                <th>Status</th>
+            </tr>
+            {% for booking in bookings %}
+            <tr 
+            onclick="window.location.href='{% if booking.status == 'confirmed' %}{{ url_for('confirmation', booking_id=booking.booking_id) }}{% else %}{{url_for('payment', booking_id=booking.booking_id)}}{% endif %}'"
+                style="cursor: pointer;">
+                <td>{{ booking.name }}</td>
+                <td>${{ booking.price }}</td>
+                <td>{{ booking.booking_date }}</td>
+                <td>{{ booking.status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No booking history found.</p>
+    {% endif %}
+</section>
+{% endblock %}

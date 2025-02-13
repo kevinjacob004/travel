@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="bookings">
+    <h2>Book a Package</h2>
+    <div class="booking-form-container">
+        <form method="POST" action="/bookings" class="booking-form">
+            <label for="package_id">Select a Package:</label>
+            <div class="dropdown-container">
+                <select name="package_id" id="package_id" required class="package-dropdown">
+                    <option value="">-- Select a Package --</option> <!-- Default option -->
+                    {% for package in packages %}
+                    <option value="{{ package.package_id }}">{{ package.name }} - ${{ package.price }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="booking-button">Book Now</button>
+        </form>
+        
+        <div class="package-image-container">
+            <img src="/static/images/default-package.jpg" id="package-image" alt="Package Image">
+        </div>
+    </div>
+    
+    <h3>Leave a Review</h3>
+    <form method="POST" action="/reviews" class="review-form">
+        <label for="package_id_review">Select a Package:</label>
+        <select name="package_id" id="package_id_review" required class="package-dropdown">
+            <option value="">-- Select a Package --</option>
+            {% for package in packages %}
+            <option value="{{ package.package_id }}">{{ package.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="rating">Rating (1-5):</label>
+        <input type="number" name="rating" min="1" max="5" required>
+
+        <label for="comment">Comment:</label>
+        <textarea name="comment" id="comment" rows="4" required></textarea>
+
+        <button type="submit" class="review-button">Submit Review</button>
+    </form>
+</section>
+
+<script>
+    // Object to hold package image URLs based on their IDs
+    var packageImages = {
+        '1': '/static/images/paris_package.jpg',
+        '2': '/static/images/tokyo_package.jpg',
+        '3': '/static/images/sydney_package.jpg',
+        '4': '/static/images/cairo_package.jpg',
+        '5': '/static/images/new_york_package.jpg'
+    };
+
+    // Change the image based on selected package
+    document.getElementById('package_id').addEventListener('change', function () {
+        var selectedPackageId = this.value;
+        var packageImage = document.getElementById('package-image');
+
+        // Update the image based on the selection
+        if (selectedPackageId) {
+            packageImage.src = packageImages[selectedPackageId] || '/static/images/default-package.jpg'; // Default image
+        } else {
+            packageImage.src = '/static/images/default-package.jpg'; // Show default image when "None" is selected
+        }
+    });
+</script>
+{% endblock %}
